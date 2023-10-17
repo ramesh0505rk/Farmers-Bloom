@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Registration_Form</title>
+    <link rel="stylesheet" href="registration.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">Registration</div>
+      <div class="content">
+        <form action="register.php" method="post" onsubmit="return validateForm()">
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">Username</span>
+              <input type="text" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Phone Number</span>
+              <input type="text" name="phone_number" placeholder="Enter your number" required>
+              <span class="error" id="phone-alphabet-error"></span>
+              <span class="error" id="phone-digit-error"></span>
+            </div>
+            <div class="input-box">
+              <span class="details">Password</span>
+              <input type="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Confirm Password</span>
+              <input type="password" name="confirm_password" placeholder="Confirm your password" required>
+              <span class="error" id="password-error"></span>
+            </div>
+          </div>
+
+          <div class="gender-details">
+            <input type="radio" name="user_type" id="dot-1" value="General User" required>
+            <input type="radio" name="user_type" id="dot-2" value="Municipality Head" required>
+            <span class="gender-title">User</span>
+            <div class="category">
+              <label for="dot-1">
+                <span class="dot one"></span>
+                <span class="gender">General User</span>
+              </label>
+              <label for "dot-2">
+                <span class="dot two"></span>
+                <span class="gender">Municipality Head</span>
+              </label>
+            </div>
+          </div>
+          <div class="button">
+            <input type="submit" value="Register">
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function validateForm() {
+        const phoneNumber = document.getElementsByName("phone_number")[0].value;
+        const phoneAlphabetError = document.getElementById("phone-alphabet-error");
+        const phoneDigitError = document.getElementById("phone-digit-error");
+
+        if (!/^\d+$/.test(phoneNumber)) {
+          phoneAlphabetError.textContent = "Phone number must only contain digits.";
+          phoneDigitError.textContent = "";
+          return false;
+        } else {
+          phoneAlphabetError.textContent = "";
+        }
+
+        if (phoneNumber.length !== 10) {
+          phoneDigitError.textContent = "Phone number must contain exactly 10 digits.";
+          return false;
+        } else {
+          phoneDigitError.textContent = "";
+        }
+
+        const password = document.getElementsByName("password")[0].value;
+        const confirmPassword = document.getElementsByName("confirm_password")[0].value;
+        const passwordError = document.getElementById("password-error");
+        if (password !== confirmPassword) {
+          passwordError.textContent = "Passwords do not match.";
+          return false;
+        } else {
+          passwordError.textContent = "";
+        }
+
+        return true;
+      }
+    </script>
+  </body>
+</html>
